@@ -43,7 +43,7 @@ const RegisterPage = ({ type }: IRegisterPage) => {
     useEffect(() => {
         const timer = setInterval(() => {
             setErrorValidation((prevState) => prevState.slice(1));
-        }, 1500);
+        }, 3000);
 
         return () => clearTimeout(timer);
     }, []);

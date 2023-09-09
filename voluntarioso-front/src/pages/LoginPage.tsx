@@ -29,6 +29,14 @@ const LoginPage = ({ type }: IRegisterPage) => {
     const [errorValidation, setErrorValidation] = useState<any[]>([]);
 
     useEffect(() => {
+        const timer = setInterval(() => {
+            setErrorValidation((prevState) => prevState.slice(1));
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
         AuthHelper.logout();
     }, []);
 
@@ -111,6 +119,18 @@ const LoginPage = ({ type }: IRegisterPage) => {
                 Login {type}
             </Typography>
             <Box paddingY={8} />
+            {errorValidation &&
+                errorValidation.map((errValidation, idx) => {
+                    return (
+                        <Alert
+                            key={idx}
+                            sx={{ marginY: '1rem', borderRadius: '1rem' }}
+                            severity='error'
+                        >
+                            {errValidation}
+                        </Alert>
+                    );
+                })}
             <CustomInput
                 labelName='email'
                 placeholder='email@email.com'
@@ -155,18 +175,6 @@ const LoginPage = ({ type }: IRegisterPage) => {
                 type='outlined'
                 name='não tenho cadastro'
             />
-            {errorValidation &&
-                errorValidation.map((errValidation, idx) => {
-                    return (
-                        <Alert
-                            key={idx}
-                            sx={{ marginY: '1rem', borderRadius: '1rem' }}
-                            severity='error'
-                        >
-                            {errValidation}
-                        </Alert>
-                    );
-                })}
         </div>
     );
 };

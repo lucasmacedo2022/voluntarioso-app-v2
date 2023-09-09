@@ -11,7 +11,6 @@ const apiRequestEnpoints = {
     RemoverVoluntario: `${defaultProxy}/ONG`,
     ObterListaONG: `${defaultProxy}/Volunteer`,
     CandidatarONG: `${defaultProxy}/Volunteer`,
-    AdicionarSugestao: `${defaultProxy}/Volunteer/add-suggestion-to-ong`,
     ObterProjetos: `${defaultProxy}/Volunteer/get-projects`,
     ProjectRegister: `${defaultProxy}/Volunteer/project-register`,
 };

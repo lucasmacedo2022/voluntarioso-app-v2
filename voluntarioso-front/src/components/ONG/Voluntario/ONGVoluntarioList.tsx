@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import apiRequestEnpoints from '../../../apiRequests';
 import CustomButton from '../../shared/CustomButton';
@@ -120,14 +120,14 @@ const ONGVoluntarioList = () => {
             <Box paddingY={2} />
             {ongVoluntarios && ongVoluntarios.length > 0 ? (
                 ongVoluntarios.map((voluntario) => (
-                    <>
+                    <Fragment key={voluntario.volunId}>
                         <VoluntarioSingle
                             key={voluntario.volunId}
                             voluntario={voluntario}
                             selectVoluntarioNome={handleSelectVoluntarioNome}
                             selectVoluntarioId={handleSelectVoluntarioId}
                         />
-                        <>
+                        <Fragment>
                             <Box paddingY={1} />
                             <Box display='flex' justifyContent='space-around'>
                                 <CustomButton
@@ -152,8 +152,8 @@ const ONGVoluntarioList = () => {
                                     name='Deletar'
                                 />
                             </Box>
-                        </>
-                    </>
+                        </Fragment>
+                    </Fragment>
                 ))
             ) : (
                 <Typography color='red'>

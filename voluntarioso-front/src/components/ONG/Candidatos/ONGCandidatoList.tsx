@@ -1,6 +1,6 @@
 import { Typography, Box } from '@mui/material';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import apiRequestEnpoints from '../../../apiRequests';
 import { ONG } from '../../../models/ONG';
@@ -43,6 +43,8 @@ const ONGCandidatoList = () => {
 
                     setIsAuthenticated(true);
 
+                    console.log(data);
+
                     const result = data[0].volunteers.filter((x) =>
                         data[0].ongVolunteers.some(
                             (y) =>
@@ -62,6 +64,7 @@ const ONGCandidatoList = () => {
 
         const result = await axios.put(
             `${apiRequestEnpoints.AceitarVoluntario}?volunteerId=${volunId}&ongId=${id}`,
+            null,
             tokenConfig
         );
 
@@ -107,7 +110,7 @@ const ONGCandidatoList = () => {
             <Box paddingY={2} />
             {ongCandidatos && ongCandidatos!.length > 0 ? (
                 ongCandidatos.map((candidato) => (
-                    <>
+                    <Fragment key={candidato.volunId}>
                         <ONGCandidatoSingle
                             key={candidato.volunId}
                             candidato={candidato}
@@ -123,7 +126,7 @@ const ONGCandidatoList = () => {
                                 name='Aceitar?'
                             />
                         </Box>
-                    </>
+                    </Fragment>
                 ))
             ) : (
                 <Typography color='red'>

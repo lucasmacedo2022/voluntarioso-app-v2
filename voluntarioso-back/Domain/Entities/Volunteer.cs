@@ -8,8 +8,7 @@
 		public string VolunName { get; set; } = string.Empty;
 		public string VolunCPF { get; set; } = string.Empty;
 		public DateTime VolunBirthDate { get; set; }
-		public string VolunSuggestions { get; set; } = string.Empty;
-        public List<ONG>? Ongs { get; set; }
+		public List<ONG>? Ongs { get; set; }
 		public List<ONGVolunteer>? OngVoluntarios { get; set; }
 		public List<Project>? Projects { get; set; }
 	}

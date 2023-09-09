@@ -2,18 +2,16 @@ import { Box, Typography } from '@mui/material';
 import axios from 'axios';
 import { cnpj } from 'cpf-cnpj-validator';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import apiRequestEnpoints from '../../apiRequests';
 import { ONG } from '../../models/ONG';
 import Colors from '../../shared/colors';
 import CustomButton from '../shared/CustomButton';
 import MainActions from '../shared/MainActions';
 import { AuthHelper } from '../../helpers/AuthHelper';
+import jwtDecode from '../../helpers/JWTHelper';
 
 const ONGDetail = () => {
-    const {
-        state: { voluntarioId },
-    } = useLocation();
     const { ongId } = useParams();
     const navigate = useNavigate();
     const [ong, setOng] = useState<ONG>({
@@ -63,8 +61,13 @@ const ONGDetail = () => {
         const token = AuthHelper.getToken();
         const tokenConfig = AuthHelper.sendToken(token);
 
+        const decodedToken = jwtDecode(token);
+
+        const voluntarioId = decodedToken.volunId;
+
         const result = await axios.post(
             `${apiRequestEnpoints.CandidatarONG}?volunteerId=${voluntarioId}&ongId=${ongId}`,
+            null,
             tokenConfig
         );
 
